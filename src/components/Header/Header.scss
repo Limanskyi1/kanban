@@ -1,0 +1,110 @@
+.header {
+  height: 96px;
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  .wrapper {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    @media (max-width: 768px) {
+      grid-template-columns: 50px 1fr;
+    }
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid var(--lines-light);
+    @media (max-width: 768px) {
+      border: none;
+    }
+    & > svg {
+      width: 152px;
+    }
+  }
+  .header__right {
+    display: flex;
+    align-items: center;
+    padding: 0 32px;
+    @media (max-width: 768px) {
+      padding: 0 15px;
+    }
+    & > svg {
+      width: 5px;
+      cursor: pointer;
+    }
+  }
+  .btn-primary {
+    margin-left: auto;
+    margin-right: 32px;
+    @media (max-width: 768px) {
+      width: 48px;
+      height: 32px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  .dots-menu {
+    .sub-menu {
+      left: unset;
+      top: 190%;
+      right: 0;
+    }
+  }
+  .header-drop-down {
+    position: relative;
+    .active {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      p {
+        font-weight: 700;
+        font-size: 18px;
+        color: var(--black);
+      }
+      svg {
+        transition: 0.3s ease-in-out;
+      }
+    }
+    &.open {
+      ul {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0px);
+      }
+      .active svg {
+        transform: rotate(180deg);
+      }
+    }
+    ul {
+      width: max-content;
+      list-style-type: none;
+      position: absolute;
+      top: 110%;
+      left: 0;
+      opacity: 0;
+      visibility: none;
+      transform: translateY(20px);
+      transition: 0.3s ease-in-out;
+      li{
+        color: var(--black);
+      }
+    }
+  }
+}
+
+[data-theme="dark"] {
+  .header {
+    background: var(--dark-grey);
+    .title-24 {
+      color: var(--black);
+    }
+    .logo {
+      border-right: 1px solid var(--lines-dark);
+    }
+  }
+}

@@ -1,0 +1,29 @@
+.board {
+  display: grid;
+  overflow: auto;
+  gap: 24px;
+  height: calc(100vh - 96px);
+  .add-col {
+    background: linear-gradient(
+      180deg,
+      #e9effa 0%,
+      rgba(233, 239, 250, 0.5) 100%
+    );
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 24px;
+    color: var(--medium-grey);
+    cursor: pointer;
+  }
+}
+
+[data-theme="dark"]{
+  .board{
+    .add-col{
+      background: linear-gradient(180deg, rgba(43, 44, 55, 0.25) 0%, rgba(43, 44, 55, 0.25) 100%);
+    }
+  }
+}

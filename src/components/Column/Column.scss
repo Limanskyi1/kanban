@@ -1,0 +1,19 @@
+.column{
+    &:hover{
+        .dots-menu{
+            opacity: 1;
+        }
+    }
+    .name{
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        p{
+            color:var(--medium-grey)
+        }
+    }
+    .dots-menu{
+        transition: .3s ease-in-out;
+        opacity: 0;
+    }
+}

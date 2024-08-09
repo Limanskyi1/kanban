@@ -1,0 +1,17 @@
+.task {
+  padding: 23px 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px 0 rgba(54, 78, 126, 0.1);
+  background: var(--white);
+  border-radius: 8px;
+  text-align: left;
+  max-width: 280px;
+  width: 100%;
+  margin-bottom: 24px;
+  &:last-of-type{
+    margin-bottom: 0;
+  }
+  & > h2 {
+    margin-bottom: 8px;
+  }
+}

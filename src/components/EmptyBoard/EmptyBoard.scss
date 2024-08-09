@@ -1,0 +1,12 @@
+.emptyBoard{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    background-color: var(--light-grey-light-bg);
+    width: 100%;
+    & > p{
+        
+    }
+}

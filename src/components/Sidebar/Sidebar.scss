@@ -1,0 +1,132 @@
+.sidebar {
+  margin-left: -260px;
+  min-width: 260px;
+  padding: 32px 0;
+  padding-right: 24px;
+  flex: 0 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+  transition: .3s margin ease-in-out;
+  position: relative;
+  height: calc(100vh - 96px);
+  &.open{
+    margin-left: 0;
+    .sidebar__open{
+      visibility: hidden;
+      opacity: 0;
+    }
+  }
+  .count {
+    margin-left: 32px;
+    margin-bottom: 18px;
+  }
+  .boards {
+    .board {
+      padding: 14px 32px;
+      border-radius: 0 100px 100px 0;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      height: fit-content;
+      transition: .3s ease-in-out;
+      gap: 16px;
+      &:hover{
+        background: var(--lines-light);
+      }
+      &.active{
+        background: var(--main-purple);
+        & > svg {
+            fill: var(--white);
+        }
+        & > p {
+            color: var(--white);
+        }
+      }
+      & > svg {
+        width: 16px;
+        height: 16px;
+        fill: var(--medium-grey);
+      }
+    }
+  }
+  .create__board{
+    margin: 14px 0;
+    padding-left: 32px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 16px;
+    & > svg {
+        fill: var(--main-purple);
+        width: 16px;
+        height: 16px;
+    }
+  }
+  .sidebar__hide{
+    cursor: pointer;
+    margin-top: 24px;
+    margin-left: 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    & > svg{
+        width: 18px;
+        height: 16px;
+        fill: var(--medium-grey);
+    }
+  }
+  .sidebar__open{
+    cursor: pointer;
+    position: absolute;
+    bottom: 32px;
+    right: -52px;
+    width: 52px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0 100px 100px 0;
+    transition: .3s ease-in-out;
+    background: var(--main-purple);
+    & > svg {
+      fill: var(--white);
+      width: 16px;
+    }
+  }
+  .theme-switcher{
+    margin-top: auto;
+    background: var(--light-grey-light-bg);
+    border-radius: 6px;
+    padding: 14px;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    justify-content: center;
+    margin-left: auto;
+    &.dark{
+      .toggle span{
+        margin-left: 19px;
+      }
+    }
+    .toggle{
+      background-color: #635FC7;
+      cursor: pointer;
+      width: 40px;
+      height: 20px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      padding: 0 3px;
+      span {
+        transition: .3s ease-in-out;
+        border-radius: 50%;
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        background-color: var(--white);
+      }
+    }
+  }
+}

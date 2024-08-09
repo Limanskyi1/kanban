@@ -1,0 +1,53 @@
+.btn-primary {
+  background: var(--main-purple);
+  font-family: var(--font-family);
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  border-radius: 24px;
+  padding: 14px 24px;
+  flex-shrink: 0;
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+  &:hover {
+    background: var(--main-purple-hover);
+  }
+}
+
+.delete-btn {
+  background: var(--red);
+  border-radius: 20px;
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--white);
+  padding: 10px;
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+  &:hover {
+    background: var(--red-hover);
+  }
+}
+
+.cancel-btn {
+  cursor: pointer;
+  background: rgba(99, 95, 199, 0.1);
+  border-radius: 20px;
+  padding: 10px;
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--main-purple);
+  transition: 0.3s ease-in-out;
+  &:hover {
+    background: rgba(99, 95, 199, 0.25);
+  }
+}
+
+.btn-add {
+  border-radius: 20px;
+  background: rgba(99, 95, 199, 0.1);
+  padding: 10px 0;
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--main-purple);
+}
