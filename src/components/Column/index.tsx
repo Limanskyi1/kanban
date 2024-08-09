@@ -19,7 +19,7 @@ export const Column: FC<ColumnProps> = ({ name, tasks,id }) => {
 
   const dispatch = useAppDispatch();
 
-  const [{ isOver }, drop] = useDrop(() => ({
+  const [{}, drop] = useDrop(() => ({
     accept: "TASK",
     drop: (item: { task: ITask }) => {
       const payload = {
