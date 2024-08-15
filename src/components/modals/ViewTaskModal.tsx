@@ -34,9 +34,10 @@ export const ViewTaskModal: FC = () => {
   }, [selectedOption]);
 
   useEffect(() => {
+    // Этот эффект срабатывает при размонтировании компонента
     return () => {
       if (
-        unMount.current &&
+        unMount.current && // Если компонент уже был смонтирован
         appState.currentTaskStatus !== selectedOptionRef.current
       ) {
         const payload = {
@@ -44,11 +45,11 @@ export const ViewTaskModal: FC = () => {
           updatedStatus: selectedOptionRef.current as string,
         };
         dispatch(changeTaskStatus(payload));
-        return;
+      } else {
+        unMount.current = true; // Устанавливаем флаг после первого рендера
       }
-      unMount.current = true;
     };
-  }, []);
+  }, [appState.currentTaskStatus, dispatch, task]);
 
   const onClickSubtask = (subIndex: number): void => {
     const payload = {
