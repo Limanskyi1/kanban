@@ -4,7 +4,6 @@ import { IconMoon, IconSun } from "../../icons"
 import { localStorageServive } from "../../services/LocalStorageService";
 
 export const ThemeSwitcher:FC = () => {
-
   const {appTheme,setAppTheme} = useAppContext();  
 
   const toggleTheme = () => {
@@ -12,7 +11,6 @@ export const ThemeSwitcher:FC = () => {
     setAppTheme(newTheme);
     localStorageServive.setItem("theme",newTheme);
   };
-
 
   return (
     <div className={`theme-switcher ${appTheme === "light" ? "" : "dark"}`}>
