@@ -34,7 +34,7 @@ export const ViewTaskModal: FC = () => {
   }, [selectedOption]);
 
   useEffect(() => {
-    console.log(1);
+    console.log("effect");
     return () => {
       if (
         unMount.current && 
@@ -45,12 +45,11 @@ export const ViewTaskModal: FC = () => {
           updatedStatus: selectedOptionRef.current as string,
         };
         dispatch(changeTaskStatus(payload));
-      console.log(1);
-
+        console.log("effect dispath");
       } else {
+        console.log(unMount.current , appState.currentTaskStatus, selectedOptionRef.current)
         unMount.current = true;
-    console.log(1);
-
+        console.log("effect close");
       }
     };
   }, [appState.currentTaskStatus, dispatch, task]);
