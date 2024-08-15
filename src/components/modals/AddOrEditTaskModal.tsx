@@ -7,9 +7,17 @@ import { Button } from "../../ui-components/Button";
 import { addTask, changeTask } from "../../store/boardsSlice";
 import { changeTaskProps } from "../../types/reduxTypes";
 import { validateFields } from "../../utils/validateFields";
-import { useAppContext, useFormState, useOutsideClick, useSelectOptions, useTask , useAppDispatch} from "../../hooks";
+import {
+  useAppContext,
+  useFormState,
+  useOutsideClick,
+  useSelectOptions,
+  useTask,
+  useAppDispatch,
+} from "../../hooks";
+import { ModalWrapper } from "./common/ModalWrapper";
 
-export const AddOrEditTaskModal:FC<{isEdit:boolean}> = ({isEdit}) => {
+export const AddOrEditTaskModal: FC<{ isEdit: boolean }> = ({ isEdit }) => {
   const dispatch = useAppDispatch();
   const selectOptions = useSelectOptions();
   const { setCurrentModal } = useAppContext();
@@ -39,7 +47,13 @@ export const AddOrEditTaskModal:FC<{isEdit:boolean}> = ({isEdit}) => {
         },
       };
 
-  const { formState, setFormState, changeHandler, setSubtasks, setSelectedOption } = useFormState(initFormState);
+  const {
+    formState,
+    setFormState,
+    changeHandler,
+    setSubtasks,
+    setSelectedOption,
+  } = useFormState(initFormState);
 
   const sendData = () => {
     const errors = validateFields(formState);
@@ -73,44 +87,46 @@ export const AddOrEditTaskModal:FC<{isEdit:boolean}> = ({isEdit}) => {
     } else {
       dispatch(addTask(payload));
     }
-    setCurrentModal("BASE_STATE")
+    setCurrentModal("BASE_STATE");
   };
 
   return (
     <div className="modal-layout add-task-modal">
-      <div ref={modalRef} className="modal">
-        <h3 className="modal-title-black mb-24">
-          {isEdit ? `Edit Task` : "Add New Task"}
-        </h3>
-        <ModalInput
-          title="Title"
-          name="title"
-          value={formState.title}
-          error={formState.errors.title}
-          onChange={changeHandler}
-        />
-        <ModalInput
-          title="Description"
-          name="description"
-          error=""
-          value={formState.description}
-          onChange={changeHandler}
-        />
-        <span className="modal-text mb-8">Subtasks</span>
-        <Subtasks
-          subtasks={formState.subtasks}
-          errors={formState.errors.subtasks}
-          setSubtasks={setSubtasks}
-        />
-        <Select
-          options={selectOptions}
-          selectedOption={formState.selectedOption}
-          setSelectedOption={setSelectedOption}
-        />
-        <Button className="btn-primary" onClick={sendData}>
-          {isEdit ? "Save Changes" : "Create Task"}
-        </Button>
-      </div>
+      <ModalWrapper>
+        <div ref={modalRef}>
+          <h3 className="modal-title-black mb-24">
+            {isEdit ? `Edit Task` : "Add New Task"}
+          </h3>
+          <ModalInput
+            title="Title"
+            name="title"
+            value={formState.title}
+            error={formState.errors.title}
+            onChange={changeHandler}
+          />
+          <ModalInput
+            title="Description"
+            name="description"
+            error=""
+            value={formState.description}
+            onChange={changeHandler}
+          />
+          <span className="modal-text mb-8">Subtasks</span>
+          <Subtasks
+            subtasks={formState.subtasks}
+            errors={formState.errors.subtasks}
+            setSubtasks={setSubtasks}
+          />
+          <Select
+            options={selectOptions}
+            selectedOption={formState.selectedOption}
+            setSelectedOption={setSelectedOption}
+          />
+          <Button className="btn-primary" onClick={sendData}>
+            {isEdit ? "Save Changes" : "Create Task"}
+          </Button>
+        </div>
+      </ModalWrapper>
     </div>
   );
 };

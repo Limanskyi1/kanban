@@ -3,6 +3,7 @@ import { ModalInput } from "./common/ModalInput";
 import { useAppContext, useAppDispatch, useOutsideClick } from "../../hooks";
 import { Button } from "../../ui-components/Button";
 import { addBoard, addColumn } from "../../store/boardsSlice";
+import { ModalWrapper } from "./common/ModalWrapper";
 
 interface AddModalProps {
   action: string;
@@ -44,21 +45,23 @@ export const AddModal: FC<AddModalProps> = ({ action }) => {
 
   return (
     <div className="modal-layout">
-      <div className="modal add-modal" ref={modalRef}>
-        <h3 className="modal-title-black mb-24">
-          {action === "ADD_COLUMN" ? "Add New Column" : "Add New Board"}
-        </h3>
-        <ModalInput
-          onChange={handleChange}
-          title="Name"
-          name=""
-          value={addState.value}
-          error={addState.error}
-        />
-        <Button className="btn-primary" onClick={handleSubmit}>
-          Add
-        </Button>
-      </div>
+      <ModalWrapper>
+        <div className="add-modal" ref={modalRef}>
+          <h3 className="modal-title-black mb-24">
+            {action === "ADD_COLUMN" ? "Add New Column" : "Add New Board"}
+          </h3>
+          <ModalInput
+            onChange={handleChange}
+            title="Name"
+            name=""
+            value={addState.value}
+            error={addState.error}
+          />
+          <Button className="btn-primary" onClick={handleSubmit}>
+            Add
+          </Button>
+        </div>
+      </ModalWrapper>
     </div>
   );
 };

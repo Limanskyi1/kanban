@@ -4,18 +4,27 @@ import { ISubtask, ITask } from "../../types";
 import { changeSubTaskStatus, changeTaskStatus } from "../../store/boardsSlice";
 import { Select } from "../Select";
 import { DotsMenu } from "../DotsMenu";
-import { useAppContext, useAppDispatch, useOutsideClick, useSelectOptions, useTask } from "../../hooks";
+import {
+  useAppContext,
+  useAppDispatch,
+  useOutsideClick,
+  useSelectOptions,
+  useTask,
+} from "../../hooks";
+import { ModalWrapper } from "./common/ModalWrapper";
 
 export const ViewTaskModal: FC = () => {
   const dispatch = useAppDispatch();
-  
-  const { appState,setCurrentModal } = useAppContext();
+
+  const { appState, setCurrentModal } = useAppContext();
   const task: ITask = useTask() as ITask;
   const modalRef = useRef<HTMLDivElement>(null);
   useOutsideClick(modalRef, () => setCurrentModal("BASE_STATE"));
   const selectOptions = useSelectOptions();
   const [selectedOption, setSelectedOption] = useState<string>(
-    selectOptions.find((opt:string) => opt === appState.currentTaskStatus) as string
+    selectOptions.find(
+      (opt: string) => opt === appState.currentTaskStatus
+    ) as string
   );
   const unMount = useRef<boolean>(false);
   const selectedOptionRef = useRef<string>(selectedOption);
@@ -26,18 +35,20 @@ export const ViewTaskModal: FC = () => {
 
   useEffect(() => {
     return () => {
-      if(unMount.current && appState.currentTaskStatus !== selectedOptionRef.current){
+      if (
+        unMount.current &&
+        appState.currentTaskStatus !== selectedOptionRef.current
+      ) {
         const payload = {
           task,
           updatedStatus: selectedOptionRef.current as string,
-        }
+        };
         dispatch(changeTaskStatus(payload));
-        return 
+        return;
       }
       unMount.current = true;
-    }
+    };
   }, []);
-
 
   const onClickSubtask = (subIndex: number): void => {
     const payload = {
@@ -47,32 +58,39 @@ export const ViewTaskModal: FC = () => {
     dispatch(changeSubTaskStatus(payload));
   };
 
-  const onClickDeleteText = ():void => {
+  const onClickDeleteText = (): void => {
     setCurrentModal("DELETE_TASK_MODAL");
-  }
+  };
 
-  const onClickEditText = ():void => {
+  const onClickEditText = (): void => {
     setCurrentModal("EDIT_TASK_MODAL");
-  }
+  };
 
   return (
     <div className="modal-layout">
-      <div className="modal" ref={modalRef}>
-        <div className="flex-center-btwn">
-          <h3 className="modal-title-black">{task?.title}</h3>
-          <DotsMenu editText="Edit Task" deleteText="Delete Task" onClickDeleteText={onClickDeleteText} onClickEditText={onClickEditText}/>
+      <ModalWrapper>
+        <div ref={modalRef}>
+          <div className="flex-center-btwn">
+            <h3 className="modal-title-black">{task?.title}</h3>
+            <DotsMenu
+              editText="Edit Task"
+              deleteText="Delete Task"
+              onClickDeleteText={onClickDeleteText}
+              onClickEditText={onClickEditText}
+            />
+          </div>
+          <p className="modal-text mb-24">{task?.description}</p>
+          <ViewSubtasks
+            subtasks={task?.subtasks as ISubtask[]}
+            onClickSubtask={onClickSubtask}
+          />
+          <Select
+            options={selectOptions}
+            selectedOption={selectedOption as string}
+            setSelectedOption={setSelectedOption}
+          />
         </div>
-        <p className="modal-text mb-24">{task?.description}</p>
-        <ViewSubtasks
-          subtasks={task?.subtasks as ISubtask[]}
-          onClickSubtask={onClickSubtask}
-        />
-        <Select
-          options={selectOptions}
-          selectedOption={selectedOption as string}
-          setSelectedOption={setSelectedOption}
-        />
-      </div>
+      </ModalWrapper>
     </div>
   );
 };

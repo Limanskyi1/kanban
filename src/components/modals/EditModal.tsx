@@ -5,10 +5,11 @@ import {
   useAppDispatch,
   useAppSelector,
   useOutsideClick,
-  useCurrentColumn
+  useCurrentColumn,
 } from "../../hooks";
 import { Button } from "../../ui-components/Button";
 import { changeBoardName, changeColumnName } from "../../store/boardsSlice";
+import { ModalWrapper } from "./common/ModalWrapper";
 
 interface EditModalProps {
   action: string;
@@ -26,7 +27,8 @@ export const EditModal: FC<EditModalProps> = ({ action }) => {
   const modalRef = useRef<HTMLDivElement>(null);
   useOutsideClick(modalRef, () => setCurrentModal("BASE_STATE"));
 
-  const initialName = action === "EDIT_COLUMN" ? currentColumn?.name : activeBoard?.name;
+  const initialName =
+    action === "EDIT_COLUMN" ? currentColumn?.name : activeBoard?.name;
 
   const [editState, setEditState] = useState<IEditState>({
     value: initialName as string,
@@ -52,14 +54,14 @@ export const EditModal: FC<EditModalProps> = ({ action }) => {
       setEditState({ ...editState, error: "Name cannot be empty" });
       return;
     }
-    if (action === "EDIT_COLUMN"){
-        const payload = {
-            id: currentColumn?.id as string | number,
-            value: editState.value,
-        };
-        dispatch(changeColumnName(payload));
+    if (action === "EDIT_COLUMN") {
+      const payload = {
+        id: currentColumn?.id as string | number,
+        value: editState.value,
+      };
+      dispatch(changeColumnName(payload));
     }
-    if (action === "EDIT_BOARD"){
+    if (action === "EDIT_BOARD") {
       const payload = editState.value;
       dispatch(changeBoardName(payload));
     }
@@ -68,21 +70,23 @@ export const EditModal: FC<EditModalProps> = ({ action }) => {
 
   return (
     <div className="modal-layout edit-modal">
-      <div className="modal" ref={modalRef}>
-        <h3 className="modal-title-black mb-24">{createTitle()}</h3>
-        <form onSubmit={handleSubmit}>
-          <ModalInput
-            title="Name"
-            name="col-name"
-            value={editState.value}
-            error={editState.error}
-            onChange={handleChange}
-          />
-          <Button className="btn-primary" onClick={handleSubmit}>
-            Save
-          </Button>
-        </form>
-      </div>
+      <ModalWrapper>
+        <div ref={modalRef}>
+          <h3 className="modal-title-black mb-24">{createTitle()}</h3>
+          <form onSubmit={handleSubmit}>
+            <ModalInput
+              title="Name"
+              name="col-name"
+              value={editState.value}
+              error={editState.error}
+              onChange={handleChange}
+            />
+            <Button className="btn-primary" onClick={handleSubmit}>
+              Save
+            </Button>
+          </form>
+        </div>
+      </ModalWrapper>
     </div>
   );
 };
